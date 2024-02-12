@@ -174,7 +174,7 @@ end
 
 local function daip()
 	local ifname=uci:get("openclash", "config", "interface_name")
-        if not ifname or ifname == "" then
+        if not ifname or ifname == "" or ifname == "0" then
                 ifname = "lan"
         end
         ifname = string.gsub(ifname, 'br%-', '')
