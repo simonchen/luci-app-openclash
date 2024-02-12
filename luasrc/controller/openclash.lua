@@ -173,9 +173,15 @@ local function chnroutev6()
 end
 
 local function daip()
-	local daip = luci.sys.exec("uci -q get network.lan.ipaddr |awk -F '/' '{print $1}' 2>/dev/null |tr -d '\n'")
+	local ifname=uci:get("openclash", "config", "interface_name")
+        if not ifname or ifname == "" then
+                ifname = "lan"
+        end
+        ifname = string.gsub(ifname, 'br%-', '')
+
+	local daip = luci.sys.exec("uci -q get network." .. ifname .. ".ipaddr |awk -F '/' '{print $1}' 2>/dev/null |tr -d '\n'")
 	if not daip or daip == "" then
-		daip = luci.sys.exec("ip address show $(uci -q -p /tmp/state get network.lan.ifname || uci -q -p /tmp/state get network.lan.device) | grep -w 'inet'  2>/dev/null |grep -Eo 'inet [0-9\.]+' | awk '{print $2}' | tr -d '\n'")
+		daip = luci.sys.exec("ip address show $(uci -q -p /tmp/state get network." .. ifname .. ".ifname || uci -q -p /tmp/state get network." .. ifname .. ".device) | grep -w 'inet'  2>/dev/null |grep -Eo 'inet [0-9\.]+' | awk '{print $2}' | tr -d '\n'")
 	end
 	if not daip or daip == "" then
 		daip = luci.sys.exec("ip addr show 2>/dev/null | grep -w 'inet' | grep 'global' | grep 'brd' | grep -Eo 'inet [0-9\.]+' | awk '{print $2}' | head -n 1 | tr -d '\n'")
