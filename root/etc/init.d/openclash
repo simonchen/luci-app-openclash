@@ -543,7 +543,7 @@ do_run_file()
       done 2>/dev/null
 
       if [ "$proxy_mode" = "script" ] || [ "$config_set_custom_rule_provider" -eq 1 ] || [ "$rule_name" = "ConnersHua" ] || [ "$rule_name" = "lhie1" ] || [ -n "$(ruby_read "$RAW_CONFIG_FILE" "['rules'].grep(/(^RULE-SET,|^SCRIPT,)/)")" ] || [ -n "$(ruby_read "/etc/openclash/custom/openclash_custom_rules.list" "['rules'].grep(/(^RULE-SET,|^SCRIPT,)/)")" ] || [ -n "$(ruby_read "/etc/openclash/custom/openclash_custom_rules_2.list" "['rules'].grep(/(^RULE-SET,|^SCRIPT,)/)")" ]; then
-         if [ -z "$en_mode_tun" ]; then
+         if [ -n "$en_mode_tun" ]; then
             ln -s "$tun_core_path" /etc/openclash/clash 2>/dev/null
             core_type="TUN"
             core_start_log="Tip: Detected The Exclusive Function of The TUN Core, Use TUN Core to Start..."
