@@ -3,6 +3,8 @@ luci-app-openclash for openwrt
 
 v0.45.157 Forked from (https://github.com/vernesong/OpenClash)
 
+修复了一些bug, 但原作者vernesong在后期版本中，开始从0.46.031 beta中移除Dev和TUN内核的支持，改为只支持Meta内核。
+
 # 安装luci-app-openclash在内存中
 安装后的luci-app-openclash管理和内核将会全部运行在内存中，无需扩容/overlay分区！
 
