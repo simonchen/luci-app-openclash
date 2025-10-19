@@ -399,7 +399,7 @@ Thread.new{
    end;
    if ${16} == 1 then
       Value['dns']['ipv6']=true;
-      Value['ipv6']=true;
+      #Value['ipv6']=true;
    else
       Value['dns']['ipv6']=false;
    end;
